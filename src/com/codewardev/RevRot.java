@@ -13,23 +13,14 @@ public class RevRot {
 		if(sz <= 0 || string.isEmpty() || sz > string.length()) return "";
 		
 		StringBuilder result = new StringBuilder();
-		for(int i=0; i<string.length(); i+=sz) {
-			if(i+sz <= string.length()) {
-				String a = string.substring(i, i+sz);
-				int aNum = Arrays.stream(a.split("")).mapToInt(x->{
-					int j = Integer.parseInt(x);
-					return j*j*j;
-				}).sum();
-				
-				List<String> list = Arrays.asList(a.split(""));
-				if(aNum % 2 == 0) {
-					Collections.reverse(list);
-				} else {
-					Collections.rotate(list, -1);
-				}
-				a = Arrays.stream(list.toArray()).map(String::valueOf).collect(Collectors.joining());
-				result.append(a);
+		for(int i=0; i<=string.length()-sz; i+=sz) {
+			List<String> list = Arrays.stream(string.substring(i, i+sz).split("")).collect(Collectors.toList());
+			if(Arrays.stream(list.toArray()).mapToInt(x->Integer.valueOf((String)x)).map(x-> x*x*x).sum() % 2 == 0) {
+				Collections.reverse(list);
+			} else {
+				Collections.rotate(list, -1);
 			}
+			result.append(Arrays.stream(list.toArray()).map(String::valueOf).collect(Collectors.joining()));
 		}
 		
 		return result.toString();
