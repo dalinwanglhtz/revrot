@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 public class RevRot {
 
 	public static String revRot(String string, int sz) {
-		System.out.println("String: "+string+" size: "+string.length()+" sz: "+sz);
 		if(sz <= 0 || string.isEmpty() || sz > string.length()) return "";
 		
 		StringBuilder result = new StringBuilder();
@@ -22,23 +21,16 @@ public class RevRot {
 					return j*j*j;
 				}).sum();
 				
+				List<String> list = Arrays.asList(a.split(""));
 				if(aNum % 2 == 0) {
-					List<String> list = Arrays.asList(a.split(""));
 					Collections.reverse(list);
-					String newString = Arrays.stream(list.toArray()).map(String::valueOf).collect(Collectors.joining());
-					System.out.println("reversed: "+newString);
-					result.append(newString);
 				} else {
-					List<String> list = Arrays.asList(a.split(""));
 					Collections.rotate(list, -1);
-					String newString = Arrays.stream(list.toArray()).map(String::valueOf).collect(Collectors.joining());
-					System.out.println("rotated: "+newString);
-					result.append(newString);
 				}
+				a = Arrays.stream(list.toArray()).map(String::valueOf).collect(Collectors.joining());
+				result.append(a);
 			}
 		}
-		
-		System.out.println("Result: "+result.toString());
 		
 		return result.toString();
 	}
